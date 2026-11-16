@@ -35,6 +35,12 @@ Invoke-RestMethod -Method Post http://localhost:5080/api/alerts/test
 - `ts`: unix-время события в секундах
 - одинаковый `id` у аварии и восстановления — клиент объединяет их в одну карточку
 
-## Реальный источник ошибок
+## Вебхук Zabbix
 
-Написать реализацию `IAlertSource` (или вызывать `MqttBroker.PublishAsync` из своего кода) вместо `HardcodedAlertSource`.
+`POST /api/webhooks/zabbix`, заголовок `Authorization: Bearer <токен>`. Токен — `appsettings.json` → `Webhooks:ZabbixToken` или переменная окружения `Webhooks__ZabbixToken`. Пустой токен — все запросы получают 401.
+
+Настройка на стороне Zabbix: [zabbix/README.md](zabbix/README.md).
+
+```powershell
+Invoke-RestMethod -Method Post http://localhost:5080/api/webhooks/zabbix -Headers @{Authorization="Bearer change-me"} -ContentType application/json -Body '{"eventId":"1","eventValue":"1","severity":"5","name":"pg-01 is unavailable","host":"pg-01"}'
+```

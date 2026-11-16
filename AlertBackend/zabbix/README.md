@@ -1,8 +1,8 @@
-# Media type «IT Аварии» для Zabbix 7.0
+# Media type «IT Аварии»
 
 ## 1. Создать media type
 
-Alerts → Media types → Create media type:
+Alerts --> Media types  --> Create media type:
 
 - Name: `IT Аварии`
 - Type: `Webhook`
@@ -24,19 +24,6 @@ Alerts → Media types → Create media type:
 - Timeout: `10s`
 
 Вкладка Message templates: добавить `Problem` и `Problem recovery` (текст из них уходит в `Message`).
-
-## 2. Назначить получателя
-
-Users → пользователь (например служебный) → Media → Add: Type `IT Аварии`, Send to — любое значение (`alerts`).
-
-## 3. Подключить к action
-
-Alerts → Actions → Trigger actions → нужный action:
-
-- Operations: Send to user → тот пользователь, Send only to `IT Аварии`
-- Recovery operations: то же самое
-
-Обновления (acknowledge, комментарии) скрипт пропускает.
 
 ## Что получает бэкенд
 
